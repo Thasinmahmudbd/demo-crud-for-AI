@@ -1,0 +1,17 @@
+/* If the browser window is 600px or smaller */
+
+@media only screen and (max-width: 1200px) {
+
+
+/* mobile nav */
+
+.mobileNav{
+    display: grid;
+}
+
+.hamOverlay{
+    display: grid;
+}
+
+
+}

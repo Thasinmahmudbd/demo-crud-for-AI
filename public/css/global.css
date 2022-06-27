@@ -1,0 +1,20 @@
+* > a{
+    text-decoration: none;
+    color: #fff
+}
+
+input{
+    background-color: transparent;
+}
+
+.transparent{
+    background-color: transparent;
+}
+
+table{
+    table-layout: fixed;
+}
+
+input:focus-within{
+    outline: none;
+}

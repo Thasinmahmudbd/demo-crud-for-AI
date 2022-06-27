@@ -1,0 +1,54 @@
+/* If the browser window is 600px or smaller */
+
+@media only screen and (max-width: 1200px) {
+
+    .mobileFlow{
+        overflow-y: scroll;
+    }
+    
+    .contentMobile{
+        display: none;
+    }
+
+    .forMobile{
+        display: grid;
+        width: 90vw;
+        margin: auto;
+        margin-top: 70px;
+    }
+
+    .TagFilters{
+        line-height: normal;
+    }
+
+    .galleryGrid{
+        display: none;
+    }
+
+}
+
+
+/* If the browser window is 600px or smaller */
+
+@media only screen and (max-width: 479px) {
+
+    .sideBtns{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .TagFilters{
+        line-height: 3;
+    }
+
+    .articleEndLinks{
+        font-size: .8rem;
+    }
+
+    img{
+        width: 50%;
+        margin: auto;
+    }
+
+}
