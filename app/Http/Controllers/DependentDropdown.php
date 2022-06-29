@@ -3,18 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\attribute;
+use App\Models\sub_category;
 
-class AttributeController extends Controller
+class DependentDropdown extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $category_id = $request->post('category_id');
+
+        $selectedSubCategoryID = $request->session()->get('selectedSubCategoryID');
+
+        $subCategory = sub_category::where('category_id', $category_id)->get()->sortByDesc("id");
+        $html=' ';
+        foreach($subCategory as $list){
+            $html.='<option value="'.$list->id.'">'.$list->sub_category.'</option>';
+        }
+        echo $html;
     }
 
     /**
@@ -78,11 +87,8 @@ class AttributeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
-        attribute::destroy($id);
-
-        $request->session()->put('msgHook','green');
-        return redirect(route('indexProList'))->with('msg', 'Attribute deleted');
+        //
     }
 }

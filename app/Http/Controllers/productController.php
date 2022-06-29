@@ -10,7 +10,7 @@ use App\Models\product;
 use App\Models\gallery;
 use App\Models\attribute;
 
-class productController extends Controller
+class ProductController extends Controller
 {
 
 
@@ -246,6 +246,9 @@ class productController extends Controller
             }
 
         }
+
+        # deleting all previous attribute
+        attribute::where('product_id', $id)->delete();
 
             # multi attribute
             $sku = $request->sku;

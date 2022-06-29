@@ -52,17 +52,18 @@
     
         <!-- Links. -->
         <div class="mainLinks">
-                <a class="hamburger" onclick="ham()" href="#"><i class="fas fa-bars"></i></a>
+            <a class="hamburger" onclick="ham()" href="#"><i class="fas fa-bars"></i></a>
         </div>
     
     </div>
 
     <!-- drop down links. -->
     <div class="hamOverlay gridCol_3_size_1" id="ham">
-        <li class="hamNavs"><a href="{{url('/')}}">Add Product</a></li>
+        <li class="hamNavs"><a href="{{url('/insert/product')}}">Add Product</a></li>
         <li class="hamNavs"><a href="{{url('/show/all/products')}}">Product List</a></li>
         <li class="hamNavs"><a href="{{url('/show/all/categories')}}">Category</a></li>
         <li class="hamNavs"><a href="{{url('/show/all/sub/categories')}}">Sub Category</a></li>
+        <li class="hamNavs"><a href="{{url('/logout')}}">Logout</a></li>
     </div>
 
 
@@ -74,7 +75,7 @@
     
             <ul> <!--Starting: side panel - main links-->
                 <li>
-                    <a class="fr2Ls_btn hoverEff_3 borOnlyB borClrBlack borSize_1" href="{{url('/')}}">Add Product</a>
+                    <a class="fr2Ls_btn hoverEff_3 borOnlyB borClrBlack borSize_1" href="{{url('/insert/product')}}">Add Product</a>
                 </li>
                 <li>
                     <a class="fr2Ls_btn hoverEff_3 borOnlyB borClrBlack borSize_1" href="{{url('/show/all/products')}}">Product List</a>
@@ -84,6 +85,9 @@
                 </li>
                 <li>
                     <a class="fr2Ls_btn hoverEff_3 borOnlyB borClrBlack borSize_1" href="{{url('/show/all/sub/categories')}}">Sub Category</a> 
+                </li>
+                <li>
+                    <a class="fr2Ls_btn hoverEff_3 borOnlyB borClrBlack borSize_1" href="{{url('/logout')}}">Logout</a> 
                 </li>
             </ul> <!--Ending: side panel - main links-->
     
@@ -137,6 +141,8 @@
         </div> <!--Ending: right side - scrollable-->
     
     </div> <!--Ending: frame no.2-->
+
+
 
 </body>
 </html>

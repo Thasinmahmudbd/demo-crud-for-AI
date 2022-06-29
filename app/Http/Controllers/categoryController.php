@@ -8,7 +8,7 @@ use App\Models\sub_category;
 use App\Models\category;
 use App\Models\product;
 
-class categoryController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.

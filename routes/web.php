@@ -1,7 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\categoryController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductListController;
+use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\AttributeController;
+use App\Http\Controllers\DependentDropdown;
+use App\Http\Controllers\AuthController;
 
 
 
@@ -10,91 +17,125 @@ use App\Http\Controllers\categoryController;
 // });
 
 
+Route::group(['middleware'=>['accountAuth']],function() {
+
 #|--------------------------------------------------------------------------
-#| Category Routes--- following [categoryController] controller.
+#| Category Routes--- following [CategoryController] controller.
 #|--------------------------------------------------------------------------
 
 # Reads category info from db and shows in view.
-Route::get('/show/all/categories','App\Http\Controllers\categoryController@index')->name('index');
+Route::get('/show/all/categories', [CategoryController::class, 'index'])->name('index');
 
 # Inserts category info into db.
-Route::post('/add/category','App\Http\Controllers\categoryController@create')->name('create');
+Route::post('/add/category', [CategoryController::class, 'create'])->name('create');
 
 # Brings data to form for edit.
-Route::get('/edit/category/{id}','App\Http\Controllers\categoryController@edit')->name('edit');
+Route::get('/edit/category/{id}', [CategoryController::class, 'edit'])->name('edit');
 
 # Edits category info from db.
-Route::post('/edit/category/{id}','App\Http\Controllers\categoryController@update')->name('update');
+Route::post('/edit/category/{id}', [CategoryController::class, 'update'])->name('update');
 
 # Deletes category from db.
-Route::get('/delete/category/{id}','App\Http\Controllers\categoryController@destroy')->name('destroy');
+Route::get('/delete/category/{id}', [CategoryController::class, 'destroy'])->name('destroy');
 
 
 
 #|--------------------------------------------------------------------------
-#| Sub Category Routes--- following [subCategoryController] controller.
+#| Sub Category Routes--- following [SubCategoryController] controller.
 #|--------------------------------------------------------------------------
 
 # Reads sub category info from db and shows in view.
-Route::get('/show/all/sub/categories','App\Http\Controllers\subCategoryController@index')->name('indexSub');
+Route::get('/show/all/sub/categories', [SubCategoryController::class, 'index'])->name('indexSub');
 
 # Inserts sub category info into db.
-Route::post('/add/sub/category','App\Http\Controllers\subCategoryController@create')->name('createSub');
+Route::post('/add/sub/category', [SubCategoryController::class, 'create'])->name('createSub');
 
 # Brings data to form for edit.
-Route::get('/edit/sub/category/{id}','App\Http\Controllers\subCategoryController@edit')->name('editSub');
+Route::get('/edit/sub/category/{id}', [SubCategoryController::class, 'edit'])->name('editSub');
 
 # Edits sub category info from db.
-Route::post('/edit/sub/category/{id}','App\Http\Controllers\subCategoryController@update')->name('updateSub');
+Route::post('/edit/sub/category/{id}', [SubCategoryController::class, 'update'])->name('updateSub');
 
 # Deletes sub category from db.
-Route::get('/delete/sub/category/{id}','App\Http\Controllers\subCategoryController@destroy')->name('destroySub');
+Route::get('/delete/sub/category/{id}', [SubCategoryController::class, 'destroy'])->name('destroySub');
 
 
 
 #|--------------------------------------------------------------------------
-#| Product Routes--- following [productController] controller.
+#| Product Routes--- following [ProductController] controller.
 #|--------------------------------------------------------------------------
 
 # Show product add form.
-Route::get('/','App\Http\Controllers\productController@index')->name('indexPro');
+Route::get('/insert/product', [ProductController::class, 'index'])->name('indexPro');
 
 # Inserts product info into db.
-Route::post('/add/product','App\Http\Controllers\productController@create')->name('createPro');
+Route::post('/add/product', [ProductController::class, 'create'])->name('createPro');
 
 # Edit product from db.
-Route::post('/edit/product/{id}','App\Http\Controllers\productController@update')->name('updatePro');
+Route::post('/edit/product/{id}', [ProductController::class, 'update'])->name('updatePro');
 
 
 
 #|--------------------------------------------------------------------------
-#| Product List Routes--- following [productListController] controller.
+#| Product List Routes--- following [ProductListController] controller.
 #|--------------------------------------------------------------------------
 
 # Reads product info from db and shows in view.
-Route::get('/show/all/products','App\Http\Controllers\productListController@index')->name('indexProList');
+Route::get('/show/all/products', [ProductListController::class, 'index'])->name('indexProList');
 
 # Edit product from db.
-Route::get('/edit/product/{id}','App\Http\Controllers\productListController@edit')->name('editProList');
+Route::get('/edit/product/{id}', [ProductListController::class, 'edit'])->name('editProList');
 
 # Delete product from db.
-Route::get('/delete/product/{id}','App\Http\Controllers\productListController@destroy')->name('destroyProList');
+Route::get('/delete/product/{id}', [ProductListController::class, 'destroy'])->name('destroyProList');
 
 
 
 #|--------------------------------------------------------------------------
-#| Gallery Routes--- following [galleryController] controller.
+#| Gallery Routes--- following [GalleryController] controller.
 #|--------------------------------------------------------------------------
 
 # Delete gallery image.
-Route::get('/delete/image/{id}','App\Http\Controllers\galleryController@destroy')->name('destroyGallery');
+Route::get('/delete/image/{id}', [GalleryController::class, 'destroy'])->name('destroyGallery');
 
 
 
 
 #|--------------------------------------------------------------------------
-#| Attribute Routes--- following [attributeController] controller.
+#| Attribute Routes--- following [AttributeController] controller.
 #|--------------------------------------------------------------------------
 
 # Delete attribute.
-Route::get('/delete/attribute/{id}','App\Http\Controllers\attributeController@destroy')->name('destroyAttribute');
+Route::get('/delete/attribute/{id}', [AttributeController::class, 'destroy'])->name('destroyAttribute');
+
+
+#|--------------------------------------------------------------------------
+#| Dependent sub category Routes--- following [DependentDropdown] controller.
+#|--------------------------------------------------------------------------
+
+# Delete attribute.
+Route::post('/get/dependent/sub/category', [DependentDropdown::class, 'index'])->name('indexDependent');
+
+});
+
+#|--------------------------------------------------------------------------
+#| Auth Routes--- following [AuthController] controller.
+#|--------------------------------------------------------------------------
+
+# Login page.
+Route::get('/', [AuthController::class, 'login'])->name('login');
+
+# Register page.
+Route::get('/register', [AuthController::class, 'register'])->name('register');
+
+# Register user.
+Route::post('/register/user', [AuthController::class, 'registerUser'])->name('registerUser');
+
+# Login user.
+Route::post('/login/user', [AuthController::class, 'loginUser'])->name('loginUser');
+
+# Logout user.
+Route::get('/logout', function () {
+    session()->forget('access');
+    return redirect('/');
+});

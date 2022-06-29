@@ -33,6 +33,7 @@
             <div>
                 <label for="category_id">Category</label>
                 <select class="p_0_h fSize_1 m_0 cusInp" name="category_id" id="category_id" required>
+                    <option value="">Select category</option>
                     @foreach($category as $list)
                     <option value="{{$list->id}}">{{$list->category}}</option>
                     @endforeach
@@ -43,9 +44,7 @@
             <div>
                 <label for="sub_category_id">Sub Category</label>
                 <select class="p_0_h fSize_1 m_0 cusInp" name="sub_category_id" id="sub_category_id" required>
-                    @foreach($subCategory as $list)
-                    <option value="{{$list->id}}">{{$list->sub_category}}</option>
-                    @endforeach
+                    <option value=""></option>
                 </select>
             </div>
 
@@ -77,7 +76,9 @@
 
         <p>Attributes:</p>
 
-            <div class="disGrid gridCol_4_size_1 gap_1" id="attributes">
+        <div class="disGrid gridCol_1_size_1 gridGap_h" id="attributes">
+
+            <div class="disGrid gridCol_5_size_1 gridGap_h">
 
                 <div class="disGrid">
                     <label for="sku">SKU</label>
@@ -99,9 +100,14 @@
                     <input  class="p_0_h fSize_1 m_0 cusInp" type="number" name="price[]" required>
                 </div>
 
+                <div class="disGrid">
+                    <span></span>
+                    <button class="pendingBtnR curPointer addMore">Add More</button>
+                </div>
+
             </div>
 
-            <span class="pendingBtn curPointer" onclick="add_more_fields()">add more</span>
+        </div>
 
             @error('sliderImage')
 				<span class="highlightDanger w_100Per txtCenter">{{$message}}</span>
@@ -145,13 +151,7 @@
             <div>
                 <label for="sub_category_id">Sub Category</label>
                 <select class="p_0_h fSize_1 m_0 cusInp" name="sub_category_id" id="sub_category_id" required>
-                    @foreach($sub_category as $list)
-                        @if(session('selectedSubCategoryID')==$list->id)
-                            <option value="{{$list->id}}" selected>{{$list->sub_category}}</option>
-                        @else
-                            <option value="{{$list->id}}">{{$list->sub_category}}</option>
-                        @endif
-                    @endforeach
+                    <option value="{{session('selectedSubCategoryID')}}">{{session('selectedSubCategory')}}</option>
                 </select>
             </div>
 
@@ -182,13 +182,42 @@
 
         <p>Attributes:</p>
 
-            <div class="disGrid gridCol_4_size_1 gap_1" id="attributes">
+        <div class="disGrid gridCol_1_size_1 gridGap_h" id="attributes">
 
-                <!-- append will be here -->
+            @foreach($attribute as $list)
+            <div class="disGrid gridCol_5_size_1 gridGap_h">
+
+                <div class="disGrid">
+                    <label for="sku">SKU</label>
+                    <input  class="p_0_h fSize_1 m_0 cusInp content--w" type="text" name="sku[]" value="{{$list->sku}}" required>
+                </div>
+
+                <div class="disGrid">
+                    <label for="size">Size</label>
+                    <input  class="p_0_h fSize_1 m_0 cusInp" type="text" name="size[]" value="{{$list->size}}" required>
+                </div>
+
+                <div class="disGrid">
+                    <label for="quantity">Quantity</label>
+                    <input  class="p_0_h fSize_1 m_0 cusInp" type="number" name="quantity[]" value="{{$list->quantity}}" required>
+                </div>
+
+                <div class="disGrid">
+                    <label for="price">Price</label>
+                    <input  class="p_0_h fSize_1 m_0 cusInp" type="number" name="price[]" value="{{$list->price}}" required>
+                </div>
+
+                <div class="disGrid">
+                    <span></span>
+                    <button class="dangerBtnR curPointer remove">Remove</button>
+                </div>
 
             </div>
+            @endforeach
 
-            <span class="pendingBtn curPointer" onclick="add_more_fields()">add attribute</span>
+        </div>
+
+        <button class="pendingBtnR curPointer addMore">Add More</button>
 
             @error('sliderImage')
 				<span class="highlightDanger w_100Per txtCenter">{{$message}}</span>
@@ -202,5 +231,74 @@
 
 
 
+
+
+
+
+
+
+
+    <!-- jQuery -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script>
+        jQuery(document).ready(function(){
+            jQuery('#category_id').change(function(){
+                let category_id = jQuery(this).val();
+                jQuery.ajax({
+                    url:'/get/dependent/sub/category',
+                    type:'post',
+                    data:'category_id='+category_id+'&_token={{csrf_token()}}',
+                    success:function(result){
+                        jQuery('#sub_category_id').html(result)
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+
+        $(document).ready(function(){
+            $(".addMore").click(function(e){
+                e.preventDefault();
+                $("#attributes").prepend(`<div class="disGrid gridCol_5_size_1 gridGap_h">
+                
+                <div class="disGrid">
+                    <label for="sku">SKU</label>
+                    <input  class="p_0_h fSize_1 m_0 cusInp content--w" type="text" name="sku[]" required>
+                </div>
+
+                <div class="disGrid">
+                    <label for="size">Size</label>
+                    <input  class="p_0_h fSize_1 m_0 cusInp" type="text" name="size[]" required>
+                </div>
+
+                <div class="disGrid">
+                    <label for="quantity">Quantity</label>
+                    <input  class="p_0_h fSize_1 m_0 cusInp" type="number" name="quantity[]" required>
+                </div>
+
+                <div class="disGrid">
+                    <label for="price">Price</label>
+                    <input  class="p_0_h fSize_1 m_0 cusInp" type="number" name="price[]" required>
+                </div>
+
+                <div class="disGrid">
+                    <span></span>
+                    <button class="dangerBtnR curPointer remove">Remove</button>
+                </div>
+                </div>`)
+            });
+
+            $(document).on('click', '.remove', function(e){
+                e.preventDefault();
+                let row_item = $(this).parent().parent();
+                $(row_item).remove();
+            });
+        });
+
+    </script>
 
 @endsection

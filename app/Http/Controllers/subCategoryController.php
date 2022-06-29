@@ -9,7 +9,7 @@ use App\Models\sub_category;
 use App\Models\category;
 use App\Models\product;
 
-class subCategoryController extends Controller
+class SubCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.

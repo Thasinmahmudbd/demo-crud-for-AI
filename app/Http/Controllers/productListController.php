@@ -10,7 +10,7 @@ use App\Models\product;
 use App\Models\gallery;
 use App\Models\attribute;
 
-class productListController extends Controller
+class ProductListController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -81,11 +81,15 @@ class productListController extends Controller
         $request->session()->put('selectedSubCategoryID',$product->sub_category_id);
         $request->session()->put('selectedCategoryID',$product->category_id);
 
+        $selectedSubCategory = sub_category::find($product->sub_category_id);
+        $request->session()->put('selectedSubCategory',$selectedSubCategory->sub_category);
+
         # all category
         $category = category::all()->sortByDesc("id");
         $sub_category = sub_category::all()->sortByDesc("id");
+        $attribute = attribute::where('product_id', $id)->get();
 
-        return view('home')->with(['product'=>$product])->with(['category'=>$category])->with(['sub_category'=>$sub_category]);
+        return view('home')->with(['product'=>$product])->with(['category'=>$category])->with(['sub_category'=>$sub_category])->with(['attribute'=>$attribute]);
     }
 
     /**
