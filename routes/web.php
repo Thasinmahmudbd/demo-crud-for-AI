@@ -1,52 +1,100 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\categoryController;
 
 
 
-Route::get('/', function () {
-    return view('home');
-});
+// Route::get('/', function () {
+//     return view('home');
+// });
 
 
 #|--------------------------------------------------------------------------
-#| Category Routes--- following [crud] controller.
+#| Category Routes--- following [categoryController] controller.
 #|--------------------------------------------------------------------------
 
 # Reads category info from db and shows in view.
-# Redirecting to [FUNCTION-NO::01]---in-controller.
-Route::get('/show/all/categories','App\Http\Controllers\crud@show_category');
+Route::get('/show/all/categories','App\Http\Controllers\categoryController@index')->name('index');
 
 # Inserts category info into db.
-# Redirecting to [FUNCTION-NO::02]---in-controller.
-Route::post('/add/category','App\Http\Controllers\crud@insert_categories');
+Route::post('/add/category','App\Http\Controllers\categoryController@create')->name('create');
 
-# Edits category from db.
-# Redirecting to [FUNCTION-NO::03]---in-controller.
-Route::post('/edit/category/{id}','App\Http\Controllers\crud@edit_categories');
+# Brings data to form for edit.
+Route::get('/edit/category/{id}','App\Http\Controllers\categoryController@edit')->name('edit');
+
+# Edits category info from db.
+Route::post('/edit/category/{id}','App\Http\Controllers\categoryController@update')->name('update');
 
 # Deletes category from db.
-# Redirecting to [FUNCTION-NO::04]---in-controller.
-Route::get('/delete/category/{id}','App\Http\Controllers\crud@delete_categories');
+Route::get('/delete/category/{id}','App\Http\Controllers\categoryController@destroy')->name('destroy');
 
 
 
 #|--------------------------------------------------------------------------
-#| List Routes--- following [crud] controller.
+#| Sub Category Routes--- following [subCategoryController] controller.
 #|--------------------------------------------------------------------------
 
-# Reads item info from db and shows in view.
-# Redirecting to [FUNCTION-NO::05]---in-controller.
-Route::get('/','App\Http\Controllers\crud@show_items');
+# Reads sub category info from db and shows in view.
+Route::get('/show/all/sub/categories','App\Http\Controllers\subCategoryController@index')->name('indexSub');
 
-# Inserts item info into db.
-# Redirecting to [FUNCTION-NO::06]---in-controller.
-Route::post('/add/item','App\Http\Controllers\crud@insert_items');
+# Inserts sub category info into db.
+Route::post('/add/sub/category','App\Http\Controllers\subCategoryController@create')->name('createSub');
 
-# Edit item from db.
-# Redirecting to [FUNCTION-NO::07]---in-controller.
-Route::post('/edit/item/{id}','App\Http\Controllers\crud@edit_items');
+# Brings data to form for edit.
+Route::get('/edit/sub/category/{id}','App\Http\Controllers\subCategoryController@edit')->name('editSub');
 
-# Delete item from db.
-# Redirecting to [FUNCTION-NO::08]---in-controller.
-Route::get('/delete/item/{id}','App\Http\Controllers\crud@delete_items');
+# Edits sub category info from db.
+Route::post('/edit/sub/category/{id}','App\Http\Controllers\subCategoryController@update')->name('updateSub');
+
+# Deletes sub category from db.
+Route::get('/delete/sub/category/{id}','App\Http\Controllers\subCategoryController@destroy')->name('destroySub');
+
+
+
+#|--------------------------------------------------------------------------
+#| Product Routes--- following [productController] controller.
+#|--------------------------------------------------------------------------
+
+# Show product add form.
+Route::get('/','App\Http\Controllers\productController@index')->name('indexPro');
+
+# Inserts product info into db.
+Route::post('/add/product','App\Http\Controllers\productController@create')->name('createPro');
+
+# Edit product from db.
+Route::post('/edit/product/{id}','App\Http\Controllers\productController@update')->name('updatePro');
+
+
+
+#|--------------------------------------------------------------------------
+#| Product List Routes--- following [productListController] controller.
+#|--------------------------------------------------------------------------
+
+# Reads product info from db and shows in view.
+Route::get('/show/all/products','App\Http\Controllers\productListController@index')->name('indexProList');
+
+# Edit product from db.
+Route::get('/edit/product/{id}','App\Http\Controllers\productListController@edit')->name('editProList');
+
+# Delete product from db.
+Route::get('/delete/product/{id}','App\Http\Controllers\productListController@destroy')->name('destroyProList');
+
+
+
+#|--------------------------------------------------------------------------
+#| Gallery Routes--- following [galleryController] controller.
+#|--------------------------------------------------------------------------
+
+# Delete gallery image.
+Route::get('/delete/image/{id}','App\Http\Controllers\galleryController@destroy')->name('destroyGallery');
+
+
+
+
+#|--------------------------------------------------------------------------
+#| Attribute Routes--- following [attributeController] controller.
+#|--------------------------------------------------------------------------
+
+# Delete attribute.
+Route::get('/delete/attribute/{id}','App\Http\Controllers\attributeController@destroy')->name('destroyAttribute');

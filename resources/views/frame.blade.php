@@ -59,8 +59,10 @@
 
     <!-- drop down links. -->
     <div class="hamOverlay gridCol_3_size_1" id="ham">
-        <li class="hamNavs"><i class="fa-solid fa-diagram-project"></i><a href="{{url('/show/all/categories')}}">Category</a></li>
-        <li class="hamNavs"><i class="fa-solid fa-newspaper"></i><a href="{{url('/')}}">Item List</a></li>
+        <li class="hamNavs"><a href="{{url('/')}}">Add Product</a></li>
+        <li class="hamNavs"><a href="{{url('/show/all/products')}}">Product List</a></li>
+        <li class="hamNavs"><a href="{{url('/show/all/categories')}}">Category</a></li>
+        <li class="hamNavs"><a href="{{url('/show/all/sub/categories')}}">Sub Category</a></li>
     </div>
 
 
@@ -72,10 +74,16 @@
     
             <ul> <!--Starting: side panel - main links-->
                 <li>
+                    <a class="fr2Ls_btn hoverEff_3 borOnlyB borClrBlack borSize_1" href="{{url('/')}}">Add Product</a>
+                </li>
+                <li>
+                    <a class="fr2Ls_btn hoverEff_3 borOnlyB borClrBlack borSize_1" href="{{url('/show/all/products')}}">Product List</a>
+                </li>
+                <li>
                     <a class="fr2Ls_btn hoverEff_3 borOnlyB borClrBlack borSize_1" href="{{url('/show/all/categories')}}">Category</a> 
                 </li>
                 <li>
-                    <a class="fr2Ls_btn hoverEff_3 borOnlyB borClrBlack borSize_1" href="{{url('/')}}">Item List</a>
+                    <a class="fr2Ls_btn hoverEff_3 borOnlyB borClrBlack borSize_1" href="{{url('/show/all/sub/categories')}}">Sub Category</a> 
                 </li>
             </ul> <!--Ending: side panel - main links-->
     
