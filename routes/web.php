@@ -134,6 +134,9 @@ Route::post('/register/user', [AuthController::class, 'registerUser'])->name('re
 # Login user.
 Route::post('/login/user', [AuthController::class, 'loginUser'])->name('loginUser');
 
+# Verify user.
+Route::get('/verify/account/{token}', [AuthController::class, 'verifyUser'])->name('verifyUser');
+
 # Logout user.
 Route::get('/logout', function () {
     session()->forget('access');
